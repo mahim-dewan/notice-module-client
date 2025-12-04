@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📌 Notice Management Module (Next.js)
 
-## Getting Started
+A modern, fully responsive **Notice Management Module** built with **Next.js (App Router)**, **shadcn/ui**, and **Tailwind CSS**. This module allows authors to create, publish, unpublish, and manage notices with form validation, API integration.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Features
+
+- ✅ Fully responsive UI (mobile & desktop)
+- ✅ Create Notice form with full validation
+- ✅ Dropdown-based **Notice Type**
+- ✅ API-based data persistence
+- ✅ Success popup after notice publish
+- ✅ Notice listing in table format
+- ✅ Publish / Unpublish toggle
+- ✅ Pagination
+- ✅ Built with modern Next.js App Router
+
+---
+
+## 🧱 Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **UI Components**: shadcn/ui
+- **Styling**: Tailwind CSS
+- **Form Validation**: React Hook Form + Zod
+- **State Management**: React Hooks
+- **API Requests**: Fetch / Axios
+- **Backend**: REST API
+- **Database**: MongoDB
+
+---
+
+## 📁 Project Structure
+``` bash
+notice-module-client/
+├── public/
+├── src/
+│   │── app/
+│   │  ├── layout.js
+│   │  ├── page.js
+│   │  ├── not-found.js
+│   │  ├── globals.css
+│   │  ├── favicon.ico
+│   │  └── notices/
+│   │     ├── page.jsx
+│   │     └── create/
+│   │        └── page.jsx
+│   │
+│   │── components/
+│   │  ├──ui/ # shadcn components
+│   │  ├──layout/
+│   │  │  ├──Header.jsx
+│   │  │  ├──Slidebar.jsx
+│   │  │  └──Sidebar.jsx
+│   │  └──reusable/  # Reusable small components
+│   │
+│   ├── utils/  # utilities functions
+│   │   
+│   └── lib/
+│      └── utils.js  # shadcn/ui default util
+│   
+├── .env.local
+├── .gitignore
+├── components.json
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+└── README.md
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧩 Functional Overview
 
-## Learn More
+### ✅ 1. Create Notice
+- Title (Required)
+- Description (Required)
+- Notice Type (Dropdown)
+- Publish Status
+- Date
+- Full validation before submission
 
-To learn more about Next.js, take a look at the following resources:
+### ✅ 2. On Successful Submission
+- Data saved to database
+- Shows **“Notice Published Successfully”** popup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ✅ 3. Notice Listing
+- Fetch data from backend API
+- Display in table format
+- Publish/Unpublish toggle
+- Pagination support
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚙️ Installation & Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 1️⃣ Clone the Repository
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git clone https://github.com/mahim-dewan/notice-module-client.git
+
+cd notice-module-client
+
+```
+
+2️⃣ Install Dependencies
+```bash
+npm install
+```
+
+3️⃣ Environment Configuration
+
+Create .env.local
+```bash
+
+```
+
+4️⃣ Run Development Server
+```bash
+npm run dev
+```
+
+Finally open in browser 
+```bash
+http://localhost:3000
+```
+
+## 🧑‍💻 Author
+
+Developed by Mahim Dewan
+
+🔗 [portfolio](https://mahim-dewan.vercel.app/)   
+🔗 [Linkedin](https://www.linkedin.com/in/mahim-dewan79/)   
+🔗 [GitHub](https://github.com/mahim-dewan)   
+
+
