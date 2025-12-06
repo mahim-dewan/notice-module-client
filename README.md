@@ -53,12 +53,21 @@ notice-module-client/
 │   │  │  ├──Header.jsx
 │   │  │  ├──Slidebar.jsx
 │   │  │  └──Sidebar.jsx
+│   │  │
+│   │  ├──createNotice/
+│   │  │  ├──DatePickField.jsx
+│   │  │  ├──NoticeBody.jsx
+│   │  │  └──UploadAttach.jsx
+│   │  │
 │   │  └──reusable/  # Reusable small components
 │   │
-│   ├── utils/  # utilities functions
+│   ├──utils/  # utilities functions
 │   │   
-│   └── lib/
-│      └── utils.js  # shadcn/ui default util
+│   ├──hooks/
+│   │  └useCreateNotice.js
+│   │   
+│   └──lib/
+│      └──utils.js  # shadcn/ui default util
 │   
 ├── .env.local
 ├── .gitignore
@@ -73,30 +82,6 @@ notice-module-client/
 
 ```
 
-
----
-
-## 🧩 Functional Overview
-
-### ✅ 1. Create Notice
-- Title (Required)
-- Description (Required)
-- Notice Type (Dropdown)
-- Publish Status
-- Date
-- Full validation before submission
-
-### ✅ 2. On Successful Submission
-- Data saved to database
-- Shows **“Notice Published Successfully”** popup
-
-### ✅ 3. Notice Listing
-- Fetch data from backend API
-- Display in table format
-- Publish/Unpublish toggle
-- Pagination support
-
----
 
 ## ⚙️ Installation & Setup
 

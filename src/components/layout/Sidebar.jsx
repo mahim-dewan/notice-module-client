@@ -105,7 +105,7 @@ const Sidebar = () => {
       <nav className="p-4 pt-0 flex flex-col gap-3.5 overflow-y-auto">
         {menuItems.map((item) => {
           // Check active route
-          const isActive = pathname === item?.path;
+          const isActive = pathname === item?.path || pathname.startsWith(`${item.path}/`);
 
           return (
             <Link

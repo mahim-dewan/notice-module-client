@@ -10,15 +10,15 @@ export const getGreetingWithDate = () => {
   // Determine greeting based on time
   switch (true) {
     case hours < 12:
-      greeting = "Good morning";
+      greeting = "Good Morning";
       break;
 
     case hours < 18:
-      greeting = "Good afternoon";
+      greeting = "Good Afternoon";
       break;
 
     default:
-      greeting = "Good evening";
+      greeting = "Good Evening";
   }
 
   // Extract date parts
