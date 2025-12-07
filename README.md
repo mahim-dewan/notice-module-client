@@ -59,6 +59,11 @@ notice-module-client/
 │   │  │  ├──NoticeBody.jsx
 │   │  │  └──UploadAttach.jsx
 │   │  │
+│   │  ├──NoticeManage/
+│   │  │  ├──NoticeFilterBar.jsx
+│   │  │  ├──NoticeFilterPopover.jsx
+│   │  │  └──NoticeTable.jsx
+│   │  │
 │   │  └──reusable/  # Reusable small components
 │   │
 │   ├──utils/  # utilities functions

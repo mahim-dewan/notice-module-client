@@ -14,9 +14,9 @@ const InputField = ({
 }) => {
   return (
     <div className="mt-6">
-      <Label htmlFor={label} className={" text-sm text-dark-navy"}>
+      {label && <Label htmlFor={label} className={" text-sm text-dark-navy"}>
         <span className="text-danger">{required && "*"}</span> {label}
-      </Label>
+      </Label>}
       <Input
         id={label}
         type={type}

@@ -118,10 +118,13 @@ const CreateNotice = () => {
             <MultiSelect
               options={[
                 "Individual",
-                "Cloud & Infrastructure",
-                "Software Development",
-                "Business Development",
-                "Systems Administration",
+                "All Department",
+                "Finance",
+                "Sales Team",
+                "Web Team",
+                "Database Team",
+                "Admin",
+                "HR",
               ]}
               placeholder={"Select departments"}
               toggle={departmentSelectToggle}

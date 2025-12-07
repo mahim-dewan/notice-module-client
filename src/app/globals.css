@@ -14,7 +14,6 @@
    --color-white:#FFFFFF;
    --color-dark-white:#F5F6FA;
    --color-primary:#2563EB;
-   --color-success:#00A46E;
    --color-accent:#E5E7EF;
    --color-danger:#F95524;
    --color-purple:#7C3AED;
@@ -29,6 +28,8 @@
    --color-midnight-navy: #1A1F3C;
    --color-success: #10B981;
    --color-primary-blue: #3B82F6;
+   --color-golden-orange: #FFA307;
+
 
 
    /* Fonts  */
@@ -39,6 +40,9 @@
 @layer components{
   .btn-danger{
     @apply bg-danger text-white rounded-lg p-3 font-medium text-sm cursor-pointer
+  }
+  .btn-outline{
+    @apply border-[0.5px] border-primary-blue text-primary-blue rounded-sm py-3 px-4 font-normal text-sm cursor-pointer
   }
   .btn-outline-amber{
     @apply border border-amber text-amber rounded-lg p-3 font-medium text-sm cursor-pointer

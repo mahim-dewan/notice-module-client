@@ -75,8 +75,8 @@ export default function MultiSelectRaw({options,placeholder,toggle,selected,}) {
             >
               <Input
                 type="checkbox"
-                checked={selected?.includes(item)}
-                onChange={() => toggle(item)}
+                checked={selected && selected?.includes(item)}
+                onChange={() => toggle && toggle(item)}
                 className="w-6 h-6"
               />
               {item}
