@@ -14,14 +14,22 @@
    --color-white:#FFFFFF;
    --color-dark-white:#F5F6FA;
    --color-primary:#2563EB;
-   --color-success:#00A46E;
    --color-accent:#E5E7EF;
    --color-danger:#F95524;
    --color-purple:#7C3AED;
    --color-indigo:#4F46E5;
    --color-gray-blue:#595F7A;
    --color-dark-navy:#232948;
+   --color-gray-blue: #8C92AF;
    --color-amber: #F59E0B;
+   --color-gray: #9CA3AF;
+   --color-steel-blue: #9096B1;
+   --color-sky-blue: #0EA5E9;
+   --color-midnight-navy: #1A1F3C;
+   --color-success: #10B981;
+   --color-primary-blue: #3B82F6;
+   --color-golden-orange: #FFA307;
+
 
 
    /* Fonts  */
@@ -31,9 +39,15 @@
 /* style components  */
 @layer components{
   .btn-danger{
-    @apply bg-danger text-white rounded-lg p-3 font-medium text-sm
+    @apply bg-danger text-white rounded-lg p-3 font-medium text-sm cursor-pointer
+  }
+  .btn-outline{
+    @apply border-[0.5px] border-primary-blue text-primary-blue rounded-sm py-3 px-4 font-normal text-sm cursor-pointer
   }
   .btn-outline-amber{
-    @apply border border-amber text-amber rounded-lg p-3 font-medium text-sm
+    @apply border border-amber text-amber rounded-lg p-3 font-medium text-sm cursor-pointer
+  }
+  .btn-rounded{
+    @apply border border-gray-blue text-gray-blue bg-none px-8 py-2 rounded-[56px] font-semibold text-base cursor-pointer
   }
 }
