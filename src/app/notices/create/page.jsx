@@ -82,11 +82,17 @@ const employeePositions = [
 const CreateNotice = () => {
   const {
     noticeData,
+    error,
+    isLoading,
     setNoticeData,
     departmentSelectToggle,
     handleOnChange,
     handlePublish,
   } = useCreateNotice();
+
+  const isSelectedField = (field) => {
+    return noticeData[field] ? " text-dark-navy" : " text-steel-blue";
+  };
 
   return (
     <div className="p-6">
@@ -159,7 +165,11 @@ const CreateNotice = () => {
                       setNoticeData((prev) => ({ ...prev, employee_id: v }))
                     }
                   >
-                    <SelectTrigger className="w-full h-11! border-[0.5px] border-steel-blue mt-2 text-steel-blue">
+                    <SelectTrigger
+                      className={`w-full h-11! border-[0.5px] border-steel-blue mt-2 ${isSelectedField(
+                        "employee_id"
+                      )}`}
+                    >
                       <SelectValue placeholder="Select employee designation" />
                     </SelectTrigger>
                     <SelectContent
@@ -202,7 +212,11 @@ const CreateNotice = () => {
                       }))
                     }
                   >
-                    <SelectTrigger className="w-full h-11! border-[0.5px] border-steel-blue mt-2 text-steel-blue">
+                    <SelectTrigger
+                      className={`w-full h-11! border-[0.5px] border-steel-blue mt-2 ${isSelectedField(
+                        "employee_position"
+                      )}`}
+                    >
                       <SelectValue placeholder="Select employee position" />
                     </SelectTrigger>
                     <SelectContent
@@ -234,7 +248,10 @@ const CreateNotice = () => {
                     setNoticeData((prev) => ({ ...prev, type: v }))
                   }
                 >
-                  <SelectTrigger className="w-full h-11! border-[0.5px] border-steel-blue mt-2 text-steel-blue">
+                  <SelectTrigger
+                    className={`w-full h-11! border-[0.5px] border-steel-blue mt-2
+                       ${isSelectedField("type")}`}
+                  >
                     <SelectValue placeholder="Select notice type" />
                   </SelectTrigger>
                   <SelectContent
@@ -252,11 +269,14 @@ const CreateNotice = () => {
               </div>
 
               {/* Publish Date picker (controlled) */}
-              <DatePickField />
+              <DatePickField
+                noticeData={noticeData}
+                setNoticeData={setNoticeData}
+              />
             </div>
 
             {/* Notice body textarea (controlled) */}
-            <NoticeBody />
+            <NoticeBody noticeData={noticeData} setNoticeData={setNoticeData} />
 
             {/* Upload attachments (controlled) */}
             <UploadAttach />
@@ -264,8 +284,10 @@ const CreateNotice = () => {
         </div>
       </div>
 
+      {error && <p className="text-red-600">{error}</p>}
+
       {/* Action buttons   */}
-      <div className="flex justify-end gap-4 mt-8">
+      <div className="flex flex-wrap justify-end gap-4 mt-8">
         <Button className="btn-rounded">Cancel</Button>
         <Button className="btn-rounded border-primary-blue text-primary-blue">
           Save as Draft
@@ -275,7 +297,7 @@ const CreateNotice = () => {
           className="btn-rounded bg-danger text-white border-none flex items-center gap-2"
         >
           <Check />
-          <span>Publish Notice</span>
+          {isLoading ? <span>Publishing...</span> : <span>Publish Notice</span>}
         </Button>
       </div>
     </div>
