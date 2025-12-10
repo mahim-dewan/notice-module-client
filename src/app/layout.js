@@ -2,11 +2,12 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400","500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata = {
@@ -32,6 +33,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.variable} ${inter.className} antialiased`}>
         <main className="max-w-[1440px] mx-auto bg-dark-white text-dark-navy min-h-screen flex">
+          {/* Toaster Notify  */}
+          <Toaster richColors position="bottom-left" />
+
           {/* ✅ Sidebar - Left */}
           <Sidebar />
 

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/popover";
 import { ChevronDownIcon } from "lucide-react";
 import { Button } from "../ui/button";
-import { useCreateNotice } from "@/hooks/useCreateNotice";
 
 /**
  * DatePickField Component
@@ -18,10 +17,8 @@ import { useCreateNotice } from "@/hooks/useCreateNotice";
  * Uses a Popover to display a Calendar component.
  * Selected date is stored locally and also updated in the notice context.
  */
-const DatePickField = () => {
+const DatePickField = ({ setNoticeData, noticeData }) => {
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState("");
-  const { setNoticeData } = useCreateNotice();
 
   return (
     <div className="mt-6">
@@ -38,9 +35,9 @@ const DatePickField = () => {
             id="date"
             className="w-full border-[0.5px] border-steel-blue text-sm rounded-sm h-11 mt-2 py-2.5 px-4 flex items-center justify-between"
           >
-            {date ? (
+            {noticeData?.publish_date ? (
               <span className="text-dark-navy">
-                {date.toLocaleDateString()}{" "}
+                {noticeData?.publish_date.toLocaleDateString()}{" "}
               </span>
             ) : (
               <span className="text-steel-blue">Select publishing date</span>
@@ -56,10 +53,9 @@ const DatePickField = () => {
         >
           <Calendar
             mode="single"
-            selected={date}
+            selected={noticeData.publish_date}
             captionLayout="dropdown"
             onSelect={(date) => {
-              setDate(date);
               setOpen(false);
               setNoticeData((prev) => ({ ...prev, publish_date: date }));
             }}

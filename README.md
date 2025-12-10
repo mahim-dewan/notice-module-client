@@ -23,9 +23,9 @@ A modern, fully responsive **Notice Management Module** built with **Next.js (Ap
 - **Framework**: Next.js (App Router)
 - **UI Components**: shadcn/ui
 - **Styling**: Tailwind CSS
-- **Form Validation**: React Hook Form + Zod
-- **State Management**: React Hooks
-- **API Requests**: Fetch / Axios
+- **Form Validation**: Zod
+- **State Management**: Hooks
+- **API Requests**:  Axios
 - **Backend**: REST API
 - **Database**: MongoDB
 
@@ -64,14 +64,18 @@ notice-module-client/
 │   │  │  ├──NoticeFilterPopover.jsx
 │   │  │  └──NoticeTable.jsx
 │   │  │
-│   │  └──reusable/  # Reusable small components
+│   │  └──reusable/  # Reusable small
 │   │
 │   ├──utils/  # utilities functions
 │   │   
 │   ├──hooks/
 │   │  └useCreateNotice.js
+│   │
+│   ├──schemas/
+│   │  └notice.schema.js
 │   │   
 │   └──lib/
+│      ├──apis.js  # all api call here
 │      └──utils.js  # shadcn/ui default util
 │   
 ├── .env.local
@@ -108,7 +112,7 @@ npm install
 
 Create .env.local
 ```bash
-
+NEXT_PUBLIC_BASE_API = 'https://nebs.onrender.com/api'
 ```
 
 4️⃣ Run Development Server

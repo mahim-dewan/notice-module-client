@@ -1,9 +1,7 @@
 import React from "react";
 import { Label } from "../ui/label";
-import { useCreateNotice } from "@/hooks/useCreateNotice";
 
-const NoticeBody = () => {
-  const { noticeData, setNoticeData } = useCreateNotice();
+const NoticeBody = ({ noticeData, setNoticeData }) => {
   return (
     <div className="mt-6">
       <Label className={"text-sm text-dark-navy"}>Notice Body</Label>

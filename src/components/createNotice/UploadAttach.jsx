@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import Image from "next/image";
@@ -9,10 +9,9 @@ import { X } from "lucide-react";
  * UploadAttach Component
  * ----------------------
  * Allows users to upload multiple files as attachments.
- * - Displays selected files with a removable option
+ * Displays selected files with a removable option
  */
-const UploadAttach = () => {
-  const [files, setFiles] = useState([]);
+const UploadAttach = ({ files, setFiles }) => {
 
   // Remove a selected file
   const handleRemoveFile = (index) => {
@@ -21,8 +20,11 @@ const UploadAttach = () => {
 
   // Add a new file to the list
   const handleFileChange = (e) => {
-    const newFile = e.target.files[0];
-    if (newFile) setFiles((prev) => [...prev, newFile]);
+    const newFiles = Array.from(e.target.files);
+
+    if (newFiles) {
+      setFiles((prev) => [...prev, ...newFiles]);
+    }
   };
 
   return (
