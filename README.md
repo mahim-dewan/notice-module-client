@@ -23,8 +23,8 @@ A modern, fully responsive **Notice Management Module** built with **Next.js (Ap
 - **Framework**: Next.js (App Router)
 - **UI Components**: shadcn/ui
 - **Styling**: Tailwind CSS
-- **Form Validation**: React Hook Form + Zod
-- **State Management**: React Hooks
+- **Form Validation**: Zod
+- **State Management**: Hooks
 - **API Requests**:  Axios
 - **Backend**: REST API
 - **Database**: MongoDB

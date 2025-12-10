@@ -8,9 +8,12 @@ import { toast } from "sonner";
 
 /**
  * Default structure for a notice
+ * -------------------------------
+ * This object defines all the required and optional fields
+ * for creating a notice. Used to reset the form state.
  */
 const defaultNoticeData = {
-  target_department: ["Individual"],
+  target_department: ["Individual"], // default department
   title: "",
   employee_id: "",
   employee_name: "",
@@ -18,27 +21,32 @@ const defaultNoticeData = {
   type: "",
   publish_date: null,
   body: "",
-  attaches: [],
 };
 
 /**
  * useCreateNotice Hook
  * --------------------
  * Provides state and handlers for creating a notice.
- * Manages controlled form state, multi-select departments,
- * input changes, and publishing action.
+ * Manages:
+ *  - Form data (noticeData)
+ *  - Form errors
+ *  - File attachments
+ *  - Loading state
+ *  - Department multi-select
+ *  - Publishing the notice via API
  */
 export const useCreateNotice = () => {
   const [noticeData, setNoticeData] = useState(defaultNoticeData);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [files, setFiles] = useState([]);
   const router = useRouter();
 
   /**
    * departmentSelectToggle
    * ----------------------
    * Adds or removes a department from the target_department array.
-   * Ensures multi-select functionality for department selection.
+   * Used to handle multi-select for departments.
    */
   const departmentSelectToggle = (item) => {
     setNoticeData((prev) => {
@@ -56,8 +64,8 @@ export const useCreateNotice = () => {
   /**
    * handleOnChange
    * ----------------
-   * Handles input changes for all form fields dynamically.
-   * Updates the corresponding key in noticeData state.
+   * Generic input handler for form fields.
+   * Updates the noticeData state dynamically based on input name.
    */
   const handleOnChange = (e) => {
     const name = e.target.name;
@@ -66,14 +74,35 @@ export const useCreateNotice = () => {
   };
 
   /**
+   * attachesUpload
+   * ----------------
+   * Handles uploading attached files to the server.
+   * Uses FormData to send files via API.
+   * Returns API response (success, message, and uploaded file URLs).
+   */
+  const attachesUpload = async () => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("attaches", file));
+
+    const res = await api.uploadAttaches(formData);    
+    return res;
+  };
+
+  /**
    * handlePublish
    * ----------------
-   * Validates the form data, sends create notice request,
-   * handles success/error states, and resets the form.
+   * Validates notice form, uploads attachments, and calls the API to create a notice.
+   * Handles:
+   *  - Form validation with Zod
+   *  - Error display for invalid data
+   *  - File attachment upload
+   *  - API request and response handling
+   *  - Success toast & redirect
+   *  - Reset form state
    */
   const handlePublish = async () => {
     setIsLoading(true);
-    setError(null); // clear previous errors early
+    setError(null); // clear previous errors
 
     try {
       // 1. Validate the form using Zod
@@ -85,23 +114,36 @@ export const useCreateNotice = () => {
         return;
       }
 
-      // 2. API request to backend
-      const res = await api.createNotice(validate.data);
+      let newNotice = validate.data;
+
+      // 2. Upload attachments if any
+      if (files.length > 0) {
+        const res = await attachesUpload();
+        if (!res?.success) {
+          toast.error(res?.message || "Attachments cann't upload");
+          return;
+        }
+        const attaches = res?.attaches?.map((attach) => attach.url);
+        newNotice = { ...validate.data, attaches: [...attaches] };
+      }
+
+      // 3. Send API request to create notice
+      const res = await api.createNotice(newNotice);
       if (!res.success) {
         return toast.error(res?.message);
       }
 
-      // 3. Success handling
+      // 4. Success handling
       toast.success(res?.message || "New Notice Created Successfully");
 
-      // Reset form values
+      // 5. Reset form state
       setNoticeData(defaultNoticeData);
       setError(null);
 
-      // Redirect to notices page
+      // 6. Redirect to notices list
       router.push("/notices");
     } catch (err) {
-      // 4. Catch network/server errors
+      // Catch network/server errors
       toast.error(err?.message || "Couldn't Create the Notice");
     } finally {
       // 5. Stop loader
@@ -118,5 +160,7 @@ export const useCreateNotice = () => {
     handlePublish,
     isLoading,
     setIsLoading,
+    files,
+    setFiles,
   };
 };

@@ -84,6 +84,8 @@ const CreateNotice = () => {
     noticeData,
     error,
     isLoading,
+    files,
+    setFiles,
     setNoticeData,
     departmentSelectToggle,
     handleOnChange,
@@ -279,7 +281,7 @@ const CreateNotice = () => {
             <NoticeBody noticeData={noticeData} setNoticeData={setNoticeData} />
 
             {/* Upload attachments (controlled) */}
-            <UploadAttach />
+            <UploadAttach files={files} setFiles={setFiles} />
           </div>
         </div>
       </div>
