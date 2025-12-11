@@ -67,6 +67,7 @@ notice-module-client/
 │   │  │  └──UploadAttach.jsx
 │   │  │
 │   │  ├──NoticeManage/
+│   │  │  ├──Notices.jsx
 │   │  │  ├──NoticeFilterBar.jsx
 │   │  │  ├──NoticeFilterPopover.jsx
 │   │  │  ├──NoticeSkelator.jsx
