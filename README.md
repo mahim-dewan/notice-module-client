@@ -4,6 +4,13 @@ A modern, fully responsive **Notice Management Module** built with **Next.js (Ap
 
 ---
 
+## ☯️ Quick Links
+#### [Live Link⛓️‍💥](https://nebs-it-notice.vercel.app/notices)
+
+#### [Backend GitHub⛓️‍💥](https://github.com/mahim-dewan/notice-module-server)
+
+#### [Backend Live⛓️‍💥](https://nebs.onrender.com)
+
 ## 🚀 Features
 
 - ✅ Fully responsive UI (mobile & desktop)
@@ -12,7 +19,7 @@ A modern, fully responsive **Notice Management Module** built with **Next.js (Ap
 - ✅ API-based data persistence
 - ✅ Success popup after notice publish
 - ✅ Notice listing in table format
-- ✅ Publish / Unpublish toggle
+- ✅ Publish / Unpublish toggle for filter
 - ✅ Pagination
 - ✅ Built with modern Next.js App Router
 
@@ -62,6 +69,7 @@ notice-module-client/
 │   │  ├──NoticeManage/
 │   │  │  ├──NoticeFilterBar.jsx
 │   │  │  ├──NoticeFilterPopover.jsx
+│   │  │  ├──NoticeSkelator.jsx
 │   │  │  └──NoticeTable.jsx
 │   │  │
 │   │  └──reusable/  # Reusable small
@@ -69,10 +77,11 @@ notice-module-client/
 │   ├──utils/  # utilities functions
 │   │   
 │   ├──hooks/
-│   │  └useCreateNotice.js
+│   │  ├──useNoticeQuery.js
+│   │  └──useCreateNotice.js
 │   │
 │   ├──schemas/
-│   │  └notice.schema.js
+│   │  └──notice.schema.js
 │   │   
 │   └──lib/
 │      ├──apis.js  # all api call here
@@ -132,5 +141,3 @@ Developed by Mahim Dewan
 🔗 [portfolio](https://mahim-dewan.vercel.app/)   
 🔗 [Linkedin](https://www.linkedin.com/in/mahim-dewan79/)   
 🔗 [GitHub](https://github.com/mahim-dewan)   
-
-

@@ -20,7 +20,7 @@ import Button from "../reusable/Button";
  * Horizontal filter bar used to filter notices
  * by department, employee, status and publish date.
  */
-const NoticeFilterBar = () => {
+const NoticeFilterBar = ({statusSelect}) => {
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -72,7 +72,7 @@ const NoticeFilterBar = () => {
         />
 
         {/* Status filter  */}
-        <Select>
+        <Select onValueChange={(v)=>statusSelect(v)}>
           <SelectTrigger className={"border-steel-blue text-steel-blue h-11!"}>
             <SelectValue placeholder="Status" />
           </SelectTrigger>
@@ -81,7 +81,8 @@ const NoticeFilterBar = () => {
             className={"border-[0.5px] border-steel-blue bg-white"}
           >
             <SelectItem value={"published"}>Published</SelectItem>
-            <SelectItem value={"not-published"}>Not Published</SelectItem>
+            <SelectItem value={"draft"}>Draft</SelectItem>
+            <SelectItem value={"unpublished"}>UnPublished</SelectItem>
           </SelectContent>
         </Select>
 

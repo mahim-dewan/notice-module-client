@@ -1,7 +1,10 @@
+"use client";
 import NoticeFilterBar from "@/components/noticeManage/NoticeFilterBar";
 import NoticeFilter from "@/components/noticeManage/NoticeFilterPopover";
 import NoticeTable from "@/components/noticeManage/NoticeTable";
 import Button from "@/components/reusable/Button";
+import PaginationBox from "@/components/reusable/PaginationBox";
+import { useNoticeQuery } from "@/hooks/useNoticeQuery";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -17,6 +20,18 @@ import React from "react";
  * - Notices table
  */
 const Notices = () => {
+  const {
+    noticeData,
+    isLoading,
+    error,
+    currentPage,
+    setCurrentPage,
+    published,
+    unPublished,
+    statusToggle,
+    statusSelect
+  } = useNoticeQuery();
+
   return (
     <div>
       {/* ================= HEADER SECTION ================= */}
@@ -31,15 +46,17 @@ const Notices = () => {
             {/* Notice Statistics */}
             <div className="flex items-center gap-4">
               <p className="pr-4 border-r-[1.5px] border-gray text-success">
-                Active Notices: 8
+                Active Notices: {noticeData?.activeNotices}
               </p>
-              <p className="text-golden-orange">Draft Notice: 04</p>
+              <p className="text-golden-orange">
+                Draft Notice: {noticeData?.draftNotices}
+              </p>
             </div>
           </div>
 
           {/* Mobile Filter Icon */}
           <div className="lg:hidden">
-            <NoticeFilter />
+            <NoticeFilter statusSelect={statusSelect} />
           </div>
         </div>
 
@@ -60,14 +77,30 @@ const Notices = () => {
       </div>
 
       {/* ================= FILTER SECTION ================= */}
-      
-       {/* Desktop Filter Bar */}
+
+      {/* Desktop Filter Bar */}
       <div className="hidden lg:block">
-        <NoticeFilterBar />
+        <NoticeFilterBar statusSelect={statusSelect} />
       </div>
 
       {/* ================= TABLE SECTION ================= */}
-      <NoticeTable />
+      <NoticeTable
+        notices={noticeData?.data}
+        isLoading={isLoading}
+        error={error}
+        published={published}
+        unPublished={unPublished}
+        statusToggle={statusToggle}
+      />
+
+      {/* ================= PAGINATION BOX ================= */}
+      {noticeData?.totalPages > 1 && (
+        <PaginationBox
+          totalPages={noticeData?.totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

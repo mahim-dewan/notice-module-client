@@ -15,9 +15,18 @@ export const api = {
   },
 
   // Get all notices
-  getNotices: async () => {
+  getNotices: async (params = {}) => {
     try {
-      const res = await axios.get(`${BASE_API}/notices`);
+      const urlParams = new URLSearchParams();
+
+      if (params.page) urlParams.append("page", params.page);
+
+      if (params.status && Array.isArray(params.status)) {
+        params.status.forEach((s) => urlParams.append("status", s));
+      }
+      const res = await axios.get(
+        `${BASE_API}/notices?${urlParams.toString()}`
+      );
       return res.data;
     } catch (err) {
       return handleApiError(err, "Couldn't Load Notices");
@@ -31,7 +40,7 @@ export const api = {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return res.data;
-    } catch (err) {      
+    } catch (err) {
       return handleApiError(err, "Attachments can't upload");
     }
   },

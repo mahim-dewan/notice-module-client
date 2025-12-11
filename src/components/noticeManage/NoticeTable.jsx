@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
@@ -12,78 +12,16 @@ import {
 import { Input } from "../ui/input";
 import { EllipsisVertical, Eye, SquarePen } from "lucide-react";
 import ToggleSwitch from "../reusable/ToggleSwitch";
+import NoticeSkelator from "./NoticeSkelator";
 
-// Mock notice data (replace with API response later)
-const notices = [
-  {
-    _id: "1",
-    checked: true,
-    title: "Office closed on Friday for maintenance",
-    type: "General / Company-Wide",
-    department: "All Department",
-    publishedOn: "15-Jun-2025",
-    status: "Published",
-  },
-  {
-    _id: "2",
-    checked: true,
-    title: "New Performance Review Policy Released",
-    type: "Performance Improvement",
-    department: "Sales Team",
-    publishedOn: "10-Jun-2025",
-    status: "Unpublished",
-  },
-  {
-    _id: "3",
-    checked: false,
-    title: "Team Lunch Scheduled for Friday",
-    type: "Appreciation / Recognition",
-    department: "Web Team",
-    publishedOn: "12-Jun-2025",
-    status: "Draft",
-  },
-  {
-    _id: "4",
-    checked: true,
-    title: "Mandatory Cybersecurity Training",
-    type: "Advisory / Personal Reminder",
-    department: "Database",
-    publishedOn: "14-Jun-2025",
-    status: "Published",
-  },
-  {
-    _id: "5",
-    checked: false,
-    title: "Salary Adjustment Notification",
-    type: "Payroll / Compensation",
-    department: "Finance",
-    publishedOn: "11-Jun-2025",
-    status: "Draft",
-  },
-  {
-    _id: "6",
-    checked: true,
-    title: "Contract Renewal Reminder",
-    type: "Contract / Role Update",
-    department: "HR",
-    publishedOn: "13-Jun-2025",
-    status: "Published",
-  },
-  {
-    _id: "7",
-    checked: true,
-    title: "Contract Renewal Reminder",
-    type: "Contract / Role Update",
-    department: "Individual",
-    publishedOn: "13-Jun-2025",
-    status: "Published",
-  },
-];
-
-const NoticeTable = () => {
-  const [published, setPublished] = useState(true);
-  const [unPublished, setUnpublished] = useState(false);
-
+const NoticeTable = ({
+  notices,
+  isLoading,
+  error,
+  published,
+  unPublished,
+  statusToggle,
+}) => {
   // -------------------------
   // Helpers
   // -------------------------
@@ -103,18 +41,29 @@ const NoticeTable = () => {
 
   // Map notice status to badge style
   const getStatusBadgeClass = (status) => {
-    return status === "Published"
+    return status === "published"
       ? "bg-success/20 text-success"
-      : status === "Draft"
+      : status === "draft"
       ? "bg-amber/20 text-amber"
-      : status === "Unpublished"
+      : status === "unpublished"
       ? "bg-dark-white text-dark-navy"
       : "";
   };
 
+  // ========================================
+  // Loading Skelaton and Error Message
+  // ========================================
+  if (isLoading) return <NoticeSkelator />;
+  if (error)
+    return (
+      <p className="text-2xl flex items-center justify-center min-h-[50vh] text-danger">
+        {error}
+      </p>
+    );
+
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mt-8">
-      <div className="overflow-x-auto rounded-xl border border-accent relative">
+    <div className="px-4 sm:px-6 lg:px-8 mt-8 relative">
+      <div className="overflow-x-auto rounded-xl border border-accent ">
         {/* ---------- Table ---------- */}
         <Table className="min-w-full divide-y divide-accent ">
           <TableHeader>
@@ -154,7 +103,7 @@ const NoticeTable = () => {
 
           {/* ---------- Rows ---------- */}
           <TableBody>
-            {notices.map((notice) => (
+            {notices?.map((notice) => (
               <TableRow
                 key={notice._id}
                 className="bg-white border-b border-accent"
@@ -176,14 +125,18 @@ const NoticeTable = () => {
 
                 {/* Department */}
                 <TableCell className="hidden lg:table-cell">
-                  <span className={getDepartmentColorClass(notice.department)}>
-                    {notice.department}
+                  <span
+                    className={getDepartmentColorClass(
+                      notice.target_department[0]
+                    )}
+                  >
+                    {notice.target_department[0]}
                   </span>
                 </TableCell>
 
                 {/* Publish Date */}
                 <TableCell className="hidden xl:table-cell">
-                  {notice.publishedOn}
+                  {new Date(notice.publish_date).toDateString()}
                 </TableCell>
 
                 {/* Status Badge */}
@@ -221,14 +174,14 @@ const NoticeTable = () => {
           <ToggleSwitch
             label={"Published"}
             isEnabled={published}
-            onToggle={setPublished}
-            containerClass={"fixed top-[323px]  right-[50px]"}
+            onToggle={() => statusToggle("published")}
+            containerClass={" fixed top-[323px]  right-[50px]"}
           />
 
           <ToggleSwitch
             label={"Unpublished"}
             isEnabled={unPublished}
-            onToggle={setUnpublished}
+            onToggle={() => statusToggle("unpublished")}
             containerClass={"fixed top-[546px] right-[50px]"}
           />
         </div>

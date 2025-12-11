@@ -103,7 +103,7 @@ export const useCreateNotice = () => {
   const handlePublish = async () => {
     setIsLoading(true);
     setError(null); // clear previous errors
-
+    
     try {
       // 1. Validate the form using Zod
       const validate = noticeSchema.safeParse(noticeData);

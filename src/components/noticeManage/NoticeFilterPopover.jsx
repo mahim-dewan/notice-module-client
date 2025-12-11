@@ -24,9 +24,10 @@ import { Calendar } from "../ui/calendar";
  * - Status
  * - Published Date
  */
-const NoticeFilter = () => {
+const NoticeFilter = ({statusSelect}) => {
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+
 
   // -----------------------
   // Handlers
@@ -80,15 +81,13 @@ const NoticeFilter = () => {
 
           {/* Employee Search Field */}
           <Input
-            className={
-              "h-11 placeholder:text-steel-blue placeholder:text-sm"
-            }
+            className={"h-11 placeholder:text-steel-blue placeholder:text-sm"}
             type={"text"}
             placeholder={"Employee id or name"}
           />
 
           {/* Status filter  */}
-          <Select>
+          <Select onValueChange={(v) => statusSelect(v)}>
             <SelectTrigger
               className={"border-steel-blue text-steel-blue w-full h-11!"}
             >
@@ -99,7 +98,8 @@ const NoticeFilter = () => {
               className={"border-[0.5px] border-steel-blue bg-white"}
             >
               <SelectItem value={"published"}>Published</SelectItem>
-              <SelectItem value={"not-published"}>Not Published</SelectItem>
+              <SelectItem value={"draft"}>Draft</SelectItem>
+              <SelectItem value={"unpublished"}>UnPublished</SelectItem>
             </SelectContent>
           </Select>
 

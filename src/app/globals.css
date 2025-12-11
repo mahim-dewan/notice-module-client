@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+/* Global defaults */
 :root{
   font-family: var(--font-inter);
   padding: 0;
@@ -8,6 +10,7 @@
   box-sizing: border-box;
 }
 
+/* Custom Theme Variables */
 @theme {
    /* Colors  */
    --color-black:#2d3436;
@@ -36,7 +39,7 @@
    --font-inter:var(--font-inter);
 }
 
-/* style components  */
+/* Component Styles */
 @layer components{
   .btn-danger{
     @apply bg-danger text-white rounded-lg p-3 font-medium text-sm cursor-pointer
