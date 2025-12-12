@@ -6,14 +6,21 @@ import {
   PaginationItem,
   PaginationLink,
 } from "@/components/ui/pagination";
+import { setPage } from "@/context/notice/noticeActions";
+import { useNotice } from "@/context/notice/NoticeContext";
 import { getPaginationRange } from "@/utils/getPaginationRange";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-const PaginationBox = ({ totalPages, currentPage, setCurrentPage }) => {
+const PaginationBox = () => {
   const searchparams = useSearchParams();
   const router = useRouter();
+
+  const { state, dispatch } = useNotice();
+
+  const totalPages = state.noticeData.totalPages;
+  const currentPage = state.currentPage;
 
   // ===========================
   //   SYNC PAGE STATE FROM URL
@@ -21,7 +28,7 @@ const PaginationBox = ({ totalPages, currentPage, setCurrentPage }) => {
   // When component mounts → read ?page= from URL
   // Ensures correct active page when user refreshes or shares link
   useEffect(() => {
-    setCurrentPage(parseInt(searchparams.get("page")) || 1);
+    dispatch(setPage(parseInt(searchparams.get("page")) || 1));
   }, []);
 
   // Generate page number list (ex: 1 ... 4 5 6 ... 20)
@@ -32,7 +39,7 @@ const PaginationBox = ({ totalPages, currentPage, setCurrentPage }) => {
   // ===========================
   const handlePage = (page) => {
     if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
+    dispatch(setPage(page));
 
     // Update URL query params
     const params = new URLSearchParams(searchparams.toString());
@@ -59,8 +66,8 @@ const PaginationBox = ({ totalPages, currentPage, setCurrentPage }) => {
         {pageRange?.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
-              onClick={() => setCurrentPage(page)}
-              className={`${
+              onClick={() => dispatch(setPage(page))}
+              className={`cursor-pointer ${
                 currentPage === page &&
                 "border border-primary-blue text-primary-blue"
               }`}

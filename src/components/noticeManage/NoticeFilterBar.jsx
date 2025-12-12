@@ -13,6 +13,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { CalendarDays } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import Button from "../reusable/Button";
+import { resetFilter, setStatus } from "@/context/notice/noticeActions";
+import { useNotice } from "@/context/notice/NoticeContext";
 
 /**
  * NoticeFilterBar
@@ -20,9 +22,10 @@ import Button from "../reusable/Button";
  * Horizontal filter bar used to filter notices
  * by department, employee, status and publish date.
  */
-const NoticeFilterBar = ({statusSelect}) => {
+const NoticeFilterBar = () => {
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const { dispatch } = useNotice();
 
   // -----------------------
   // Handlers
@@ -36,7 +39,7 @@ const NoticeFilterBar = ({statusSelect}) => {
 
   // Reset all active filters
   const handleResetFilters = () => {
-    setSelectedDate(null);
+    dispatch(resetFilter());
   };
 
   return (
@@ -72,7 +75,7 @@ const NoticeFilterBar = ({statusSelect}) => {
         />
 
         {/* Status filter  */}
-        <Select onValueChange={(v)=>statusSelect(v)}>
+        <Select onValueChange={(v) => dispatch(setStatus(v))}>
           <SelectTrigger className={"border-steel-blue text-steel-blue h-11!"}>
             <SelectValue placeholder="Status" />
           </SelectTrigger>
@@ -92,7 +95,7 @@ const NoticeFilterBar = ({statusSelect}) => {
             <div className="border-[0.5px] border-steel-blue text-sm rounded-sm h-11 py-2.5 px-4 flex items-center justify-between gap-2.5">
               {selectedDate ? (
                 <span className="text-dark-navy">
-                  {selectedDate.toLocaleDateString()}{" "}
+                  {selectedDate.toLocaleDateString()}
                 </span>
               ) : (
                 <span className="text-steel-blue">Published on</span>

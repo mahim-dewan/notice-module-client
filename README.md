@@ -31,7 +31,7 @@ A modern, fully responsive **Notice Management Module** built with **Next.js (Ap
 - **UI Components**: shadcn/ui
 - **Styling**: Tailwind CSS
 - **Form Validation**: Zod
-- **State Management**: Hooks
+- **State Management**: Context API
 - **API Requests**:  Axios
 - **Backend**: REST API
 - **Database**: MongoDB
@@ -64,6 +64,7 @@ notice-module-client/
 │   │  ├──createNotice/
 │   │  │  ├──DatePickField.jsx
 │   │  │  ├──NoticeBody.jsx
+│   │  │  ├──SuccessPopup.jsx
 │   │  │  └──UploadAttach.jsx
 │   │  │
 │   │  ├──NoticeManage/
@@ -77,8 +78,12 @@ notice-module-client/
 │   │
 │   ├──utils/  # utilities functions
 │   │   
+│   ├──context/
+│   │  ├──NoticeContext.jsx
+│   │  ├──noticeReducer.js
+│   │  └──noticeActions.js
+│   │
 │   ├──hooks/
-│   │  ├──useNoticeQuery.js
 │   │  └──useCreateNotice.js
 │   │
 │   ├──schemas/

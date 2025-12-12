@@ -14,6 +14,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Calendar } from "../ui/calendar";
+import { useNotice } from "@/context/notice/NoticeContext";
+import { resetFilter, setStatus } from "@/context/notice/noticeActions";
 
 /**
  * NoticeFilter
@@ -24,10 +26,10 @@ import { Calendar } from "../ui/calendar";
  * - Status
  * - Published Date
  */
-const NoticeFilter = ({statusSelect}) => {
+const NoticeFilter = () => {
   const [isDateOpen, setIsDateOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-
+  const { dispatch } = useNotice();
 
   // -----------------------
   // Handlers
@@ -38,7 +40,7 @@ const NoticeFilter = ({statusSelect}) => {
   };
 
   const handleResetFilters = () => {
-    setSelectedDate(null);
+    dispatch(resetFilter())
   };
 
   return (
@@ -87,7 +89,7 @@ const NoticeFilter = ({statusSelect}) => {
           />
 
           {/* Status filter  */}
-          <Select onValueChange={(v) => statusSelect(v)}>
+          <Select onValueChange={(v) => dispatch(setStatus(v))}>
             <SelectTrigger
               className={"border-steel-blue text-steel-blue w-full h-11!"}
             >

@@ -18,6 +18,8 @@ import UploadAttach from "@/components/createNotice/UploadAttach";
 import Button from "@/components/reusable/Button";
 import Link from "next/link";
 import { useCreateNotice } from "@/hooks/useCreateNotice";
+import SuccessPopup from "@/components/createNotice/SuccessPopup";
+import { success } from "zod";
 
 // Dummy data
 const employees = [
@@ -90,6 +92,9 @@ const CreateNotice = () => {
     departmentSelectToggle,
     handleOnChange,
     handlePublish,
+    isSuccess,
+    setIsSuccess,
+    title
   } = useCreateNotice();
 
   const isSelectedField = (field) => {
@@ -98,6 +103,11 @@ const CreateNotice = () => {
 
   return (
     <div className="p-6">
+      <SuccessPopup
+        title={title}
+        isSuccess={isSuccess}
+        setIsSuccess={setIsSuccess}
+      />
       {/* Header */}
       <div className="flex gap-4 items-center">
         <Link

@@ -13,15 +13,13 @@ import { Input } from "../ui/input";
 import { EllipsisVertical, Eye, SquarePen } from "lucide-react";
 import ToggleSwitch from "../reusable/ToggleSwitch";
 import NoticeSkelator from "./NoticeSkelator";
+import { useNotice } from "@/context/notice/NoticeContext";
+import { setToggleStatus } from "@/context/notice/noticeActions";
 
-const NoticeTable = ({
-  notices,
-  isLoading,
-  error,
-  published,
-  unPublished,
-  statusToggle,
-}) => {
+const NoticeTable = () => {
+  const { state, dispatch } = useNotice();
+  const { published, unPublished, isLoading, error } = state;
+  const notices = state.noticeData?.data;
   // -------------------------
   // Helpers
   // -------------------------
@@ -174,14 +172,14 @@ const NoticeTable = ({
           <ToggleSwitch
             label={"Published"}
             isEnabled={published}
-            onToggle={() => statusToggle("published")}
+            onToggle={() => dispatch(setToggleStatus("published"))}
             containerClass={" fixed top-[323px]  right-[50px]"}
           />
 
           <ToggleSwitch
             label={"Unpublished"}
             isEnabled={unPublished}
-            onToggle={() => statusToggle("unpublished")}
+            onToggle={() => dispatch(setToggleStatus("unPublished"))}
             containerClass={"fixed top-[546px] right-[50px]"}
           />
         </div>

@@ -2,7 +2,6 @@
 
 import { api } from "@/lib/apis";
 import { noticeSchema } from "@/schemas/notice.schema.js";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -39,8 +38,9 @@ export const useCreateNotice = () => {
   const [noticeData, setNoticeData] = useState(defaultNoticeData);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [files, setFiles] = useState([]);
-  const router = useRouter();
+  const [title, setTitle] = useState("")
 
   /**
    * departmentSelectToggle
@@ -84,7 +84,7 @@ export const useCreateNotice = () => {
     const formData = new FormData();
     files.forEach((file) => formData.append("attaches", file));
 
-    const res = await api.uploadAttaches(formData);    
+    const res = await api.uploadAttaches(formData);
     return res;
   };
 
@@ -103,7 +103,9 @@ export const useCreateNotice = () => {
   const handlePublish = async () => {
     setIsLoading(true);
     setError(null); // clear previous errors
-    
+    setIsSuccess(false);
+    setTitle("")
+
     try {
       // 1. Validate the form using Zod
       const validate = noticeSchema.safeParse(noticeData);
@@ -130,18 +132,16 @@ export const useCreateNotice = () => {
       // 3. Send API request to create notice
       const res = await api.createNotice(newNotice);
       if (!res.success) {
+        setIsLoading(false);
         return toast.error(res?.message);
       }
 
-      // 4. Success handling
-      toast.success(res?.message || "New Notice Created Successfully");
-
+      // 4. Success Popup open
+      setIsSuccess(true);
+      setTitle(res?.data?.title)
       // 5. Reset form state
       setNoticeData(defaultNoticeData);
       setError(null);
-
-      // 6. Redirect to notices list
-      router.push("/notices");
     } catch (err) {
       // Catch network/server errors
       toast.error(err?.message || "Couldn't Create the Notice");
@@ -162,5 +162,8 @@ export const useCreateNotice = () => {
     setIsLoading,
     files,
     setFiles,
+    isSuccess,
+    setIsSuccess,
+    title
   };
 };

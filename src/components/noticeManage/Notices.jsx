@@ -4,7 +4,7 @@ import NoticeFilter from "@/components/noticeManage/NoticeFilterPopover";
 import NoticeTable from "@/components/noticeManage/NoticeTable";
 import Button from "@/components/reusable/Button";
 import PaginationBox from "@/components/reusable/PaginationBox";
-import { useNoticeQuery } from "@/hooks/useNoticeQuery";
+import { useNotice } from "@/context/notice/NoticeContext";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
@@ -19,17 +19,8 @@ import Link from "next/link";
  * - Notices table
  */
 const Notices = () => {
-  const {
-    noticeData,
-    isLoading,
-    error,
-    currentPage,
-    setCurrentPage,
-    published,
-    unPublished,
-    statusToggle,
-    statusSelect
-  } = useNoticeQuery();
+  const { state } = useNotice();
+  const { noticeData } = state;
 
   return (
     <div>
@@ -55,7 +46,7 @@ const Notices = () => {
 
           {/* Mobile Filter Icon */}
           <div className="lg:hidden">
-            <NoticeFilter statusSelect={statusSelect} />
+            <NoticeFilter />
           </div>
         </div>
 
@@ -79,27 +70,14 @@ const Notices = () => {
 
       {/* Desktop Filter Bar */}
       <div className="hidden lg:block">
-        <NoticeFilterBar statusSelect={statusSelect} />
+        <NoticeFilterBar />
       </div>
 
       {/* ================= TABLE SECTION ================= */}
-      <NoticeTable
-        notices={noticeData?.data}
-        isLoading={isLoading}
-        error={error}
-        published={published}
-        unPublished={unPublished}
-        statusToggle={statusToggle}
-      />
+      <NoticeTable />
 
       {/* ================= PAGINATION BOX ================= */}
-      {noticeData?.totalPages > 1 && (
-        <PaginationBox
-          totalPages={noticeData?.totalPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      )}
+      {noticeData?.totalPages > 1 && <PaginationBox />}
     </div>
   );
 };
